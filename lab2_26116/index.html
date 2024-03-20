@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <h3>Add Tasks</h3>
+        <table id="tasks_table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Task 1</td>
+                    <td>20/03/2024</td>
+                    <td>
+                        <input type="checkbox" class="checkbox" checked>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Task 2</td>
+                    <td>21/03/2024</td>
+                    <td>
+                        <input type="checkbox" class="checkbox">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="addTaskBtn">Add New Task</button>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="openEditTaskModal()">Edit Task</button>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="redirectToProfile()">Manage Profile</button>
+            <button>Log Out</button>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editTaskForm">
+                        <div class="mb-3">
+                            <label for="editTaskName" class="form-label">Task Name:</label>
+                            <input type="text" class="form-control" id="editTaskName" name="editTaskName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTaskDate" class="form-label">Task Date:</label>
+                            <input type="date" class="form-control" id="editTaskDate" name="editTaskDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTaskStatus" class="form-label">Task Status:</label>
+                            <select class="form-select" id="editTaskStatus" name="editTaskStatus" required>
+                                <option value="to do">To Do</option>
+                                <option value="in progress">In Progress</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTask()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="newTaskModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newTaskForm">
+                        <div class="mb-3">
+                            <label for="newTaskName
