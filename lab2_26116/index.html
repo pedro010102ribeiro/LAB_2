@@ -4,8 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #a34343;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -48,6 +83,10 @@
         button:hover {
             background-color: #0056b3;
         }
+        .buttons-container {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -79,18 +118,14 @@
                 </tr>
             </tbody>
         </table>
-        <div style="text-align: center; margin-top: 20px;">
-            <button id="addTaskBtn">Add New Task</button>
-        </div>
-        <div style="text-align: center; margin-top: 20px;">
-            <button onclick="openEditTaskModal()">Edit Task</button>
-        </div>
-        <div style="text-align: center; margin-top: 20px;">
-            <button onclick="redirectToProfile()">Manage Profile</button>
-            <button>Log Out</button>
+        
+        <div class="buttons-container">
+            <button id="newTaskModalButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTaskModal">Add New Task</button>
+            <button id="openEditTaskModal" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editTaskModal">Edit Task</button>
+            <a href="profile.html" class="btn btn-primary">Go to Profile</a>
+            <button class="btn btn-danger">Log Out</button>
         </div>
     </div>
-
 
     <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -134,11 +169,44 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add New Task</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="newTaskForm">
                         <div class="mb-3">
-                            <label for="newTaskName
+                            <label for="newTaskName" class="form-label">Task Name</label>
+                            <input type="text" class="form-control" id="newTaskName" placeholder="Enter task name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newTaskDate" class="form-label">Task Date</label>
+                            <input type="date" class="form-control" id="newTaskDate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTask()">Save Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="secondModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Second Modal Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Second Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
